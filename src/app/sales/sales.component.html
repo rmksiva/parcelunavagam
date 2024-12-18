@@ -1,19 +1,20 @@
 <div class="row">
     <!-- Product 1 -->
     <div class="col-md-4 mb-3" *ngFor="let item of items">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">{{item.item_name}}</h5>
-                <div class="d-flex justify-content-between align-items-center">
-                    <div class="input-group" *ngIf="item.count>0">
-                        <input type="text" readonly [value]="item.count" class="form-control form-control-sm" placeholder="0" aria-label="Count">
-                        <button class="btn btn-outline-secondary" type="button" (click)="AddMoreItemToCart(item.id)">+</button>
-                        <button class="btn btn-outline-secondary" type="button" (click)="RemoveItemFromCart(item.id)">-</button>
-                      </div>
-                    <button class="btn btn-primary" (click)="AddToCart(item.id)" *ngIf="item.count==0">Add</button>
-                </div>
-            </div>
-        </div>
+        <mat-card>
+            <mat-card-header>
+              <mat-card-title>{{item.item_name}}</mat-card-title>
+              <mat-card-subtitle>{{item.amount | currency:'INR'}}</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-actions align="end">
+                <div class="quantity" *ngIf="item.count>0">
+                    <button class="minus" aria-label="Decrease" (click)="RemoveItemFromCart(item.id)">&minus;</button>
+                    <input type="number" readonly [value]="item.count" class="input-box" value="1" min="1" max="1000">
+                    <button class="plus" (click)="AddMoreItemToCart(item.id)" aria-label="Increase">&plus;</button>
+                  </div>
+                <button class="btn btn-primary" (click)="AddToCart(item.id)" *ngIf="item.count==0">Add</button>
+            </mat-card-actions>
+          </mat-card>
     </div>
 
    
@@ -21,9 +22,9 @@
 <div class="sticky-bottom">
     <div class="container">
         <div>
-            <h5>Total Items: <span id="totalItems">{{totalCount}}</span></h5>
-            <h5>Total Price: <span id="totalPrice">{{totalAmount | currency:'INR'}}</span></h5>
+            <p class="h5">Total Items: <span id="totalItems">{{totalCount}}</span></p>
+            <p class="h3">Total Price: <span id="totalPrice">{{totalAmount | currency:'INR'}}</span></p>
         </div>
-        <button class="btn btn-success">Checkout</button>
+        <button class="btn btn-success" (click)="doCheckOut()" >Checkout</button>
     </div>
 </div>

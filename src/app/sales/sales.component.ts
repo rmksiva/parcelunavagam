@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {  Router } from '@angular/router';
 
 @Component({
   selector: 'app-sales',
@@ -8,6 +9,9 @@ import { Component } from '@angular/core';
 export class SalesComponent {
   totalCount = 0;
   totalAmount = 0;
+  constructor(private router:Router){
+
+  }
   updateSummary(){
     this.totalAmount = 0;
     this.totalCount = 0;
@@ -51,6 +55,9 @@ AddMoreItemToCart(id: number) {
         element.count=0;
       });
       this.updateSummary();
+      }
+      doCheckOut() {
+        this.router.navigate(['/summary'])
       }
 items : any[]= [
   {'id' : 1,'item_name' : 'Idly', 'amount' : 10, 'count' : 0},
